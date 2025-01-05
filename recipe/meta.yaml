@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/db-build-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/db-build-{{ version }}.tar.gz
   sha256: dee5b26c92e31239ff5a7bfd2adfc7816063b880cba578f28e4c2b73c467e2db
 
 build:
@@ -14,14 +14,15 @@ build:
     - db-build = db_build.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - click
     - sqlite-utils
 
@@ -33,6 +34,7 @@ test:
     - db-build --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/simonw/db-build
