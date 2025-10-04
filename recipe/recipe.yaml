@@ -1,8 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 schema_version: 1
 
 context:
   name: db-build
-  version: 0.1
+  version: "0.1"
 
 package:
   name: ${{ name|lower }}
@@ -26,7 +27,7 @@ requirements:
     - pip
     - setuptools
   run:
-    - python >=${{ python_min }}
+    - python >=${{ python_min }},<4.0
     - click
     - sqlite-utils
 
@@ -35,6 +36,7 @@ tests:
       imports:
         - db_build
       python_version: ${{ python_min }}.*
+      pip_check: true
   - requirements:
       run:
         - pip
